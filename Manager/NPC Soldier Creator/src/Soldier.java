@@ -24,13 +24,15 @@ public class Soldier {
 		try {
 			this.name = makeName();
 		} catch (IOException e) {
-			name = "Unknown Soldier";
+			this.name = "Unknown Soldier";
 			System.out.println(e);
 		}
+		System.out.println("His name is: "+name);
 	}
 	private String makeName() throws IOException {
+		String parsedName = "";
 		// Make a URL to the web page
-		URL url = new URL("http://www.namegenerator.biz/male-name-generator");
+		URL url = new URL("https://www.fakenamegenerator.com/gen-male-us-us.php");
 		
 		// Get the input stream through URL Connection
 		URLConnection con = url.openConnection();
@@ -47,11 +49,24 @@ public class Soldier {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(is));
 		
+		//used to stop loop when it is complete
+		boolean done = false;
+		
 		String line = null;
 		// read each line and write to System.out
-		while ((line = br.readLine()) != null) {
+		while ((line = br.readLine()) != null && !done) {
 			System.out.println(line);
+			if(line.contains("address")) {
+				parsedName = br.readLine();
+				if(((line = br.readLine()) != null) && line.contains("<div class=\"adr\">")){
+					String[] parsingName = parsedName.split(">");
+					parsingName = parsingName[1].split("<");
+					parsedName = parsingName[0];
+					parsedName.trim();
+					done = true;
+				}
+			}
 		}
-		return "name";
-	}	
+		return parsedName;
+	}
 }
