@@ -13,6 +13,9 @@
 //for getting name
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 //for random generation
 import java.util.concurrent.ThreadLocalRandom;
 //for writing bio upon death
@@ -23,9 +26,9 @@ import java.io.*;
 import java.util.Scanner;
 public class Soldier {
 	//soldiers name
-	String NAME;
-	String RANK;
-	
+	private String NAME;
+	private String RANK;
+	public static String newline = System.getProperty("line.separator");
 	
 	//Constructor
 	public Soldier(String NAME) {
@@ -110,15 +113,17 @@ public class Soldier {
 	private void catalogDeath(String deathlog) {
 		String fileLoc = "catalogOfDeath.txt";
         try {
+        	//loads file into RAM
         	File catalogOfDeath = new File(fileLoc);
-    		FileInputStream fis = new FileInputStream(catalogOfDeath);
-    		byte[] data = new byte[(int) catalogOfDeath.length()];
-    		fis.read(data);
-    		fis.close();
-
-    		String  previousDeath= new String(data, "UTF-8");
-            BufferedWriter bw = new BufferedWriter(new FileWriter(catalogOfDeath));
-            bw.append("\n"+previousDeath+"\n"+deathlog);
+        	
+        	String previousDeath = new String(Files.readAllBytes(Paths.get(fileLoc)), StandardCharsets.US_ASCII);// .UTF_8);
+        	
+        	
+    		//Loads the file into a FileWriter
+    		FileWriter bw = new FileWriter(catalogOfDeath);
+    		//overrides the current Catalog Of Death file with it's previous content +new content
+            bw.write(previousDeath+newline+deathlog);
+            //closes the writer
             bw.close();
         }
         catch (Exception e) {
