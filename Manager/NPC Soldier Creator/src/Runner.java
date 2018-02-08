@@ -13,25 +13,26 @@ public class Runner {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Soldier test = new Soldier();
+		Names name = new Names();
+		Soldier test = new Soldier(name.generateRandomName());
 		test.kill();
-		test = new Soldier();
+		test = new Soldier(name.generateRandomName());
 		test.kill();
-		test = new Soldier();
+		/**test = new Soldier(name.generateRandomName());
 		test.kill();
-		test = new Soldier();
+		test = new Soldier(name.generateRandomName());
 		test.kill();
-		test = new Soldier();
+		test = new Soldier(name.generateRandomName());
 		test.kill();
-		test = new Soldier();
+		test = new Soldier(name.generateRandomName());
 		test.kill();
-		test = new Soldier();
+		test = new Soldier(name.generateRandomName());
 		test.kill();
-		test = new Soldier();
+		test = new Soldier(name.generateRandomName());
 		test.kill();
-		test = new Soldier();
+		test = new Soldier(name.generateRandomName());
 		test.kill();
-		test = new Soldier();
+		test = new Soldier(name.generateRandomName());*/
 	}
 
 }

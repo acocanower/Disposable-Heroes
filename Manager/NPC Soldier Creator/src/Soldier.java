@@ -11,18 +11,16 @@
 
 //Imports
 //for getting name
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 //for random generation
 import java.util.concurrent.ThreadLocalRandom;
 //for writing bio upon death
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.io.IOException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.util.Scanner;
 public class Soldier {
 	//soldiers name
 	String NAME;
@@ -30,15 +28,10 @@ public class Soldier {
 	
 	
 	//Constructor
-	public Soldier() {
+	public Soldier(String NAME) {
 		//retrive the soldier's name
 		
-		try {
-			this.NAME = makeName();
-		} catch (IOException e) {
-			this.NAME = "Unknown Soldier";
-			System.out.println(e);
-		}
+		this.NAME = NAME;
 		this.RANK = makeRank();
 		
 	}
@@ -88,7 +81,6 @@ public class Soldier {
 		//used to stop loop when it is complete
 		boolean done = false;
 		
-		String line = null;
 		// read each line and write to System.out
 		while ((line = br.readLine()) != null && !done) {
 			if(line.contains("address")) {
@@ -103,7 +95,8 @@ public class Soldier {
 			}
 		}
 		return parsedName;
-	}
+	}		String line = null;
+
 	
 	public void kill() {
 		int min = 0;
@@ -111,9 +104,25 @@ public class Soldier {
 		int NUMBER_OF_KIDS = ThreadLocalRandom.current().nextInt(min, max + 1);
 		boolean MARRIED = ((NUMBER_OF_KIDS > 0) && ThreadLocalRandom.current().nextBoolean()) || ThreadLocalRandom.current().nextBoolean();
 		String deathlog = RANK+" "+NAME+" served honorably.  He was father to "+NUMBER_OF_KIDS+" children and was"+((MARRIED)?(" "):(" not "))+"married.";
+		System.out.println(deathlog);
 		catalogDeath(deathlog);
 	}
 	private void catalogDeath(String deathlog) {
-		System.out.println(deathlog);
-	}
+		String fileLoc = "catalogOfDeath.txt";
+        try {
+        	File catalogOfDeath = new File(fileLoc);
+    		FileInputStream fis = new FileInputStream(catalogOfDeath);
+    		byte[] data = new byte[(int) catalogOfDeath.length()];
+    		fis.read(data);
+    		fis.close();
+
+    		String  previousDeath= new String(data, "UTF-8");
+            BufferedWriter bw = new BufferedWriter(new FileWriter(catalogOfDeath));
+            bw.append("\n"+previousDeath+"\n"+deathlog);
+            bw.close();
+        }
+        catch (Exception e) {
+            System.out.println("ERROR: "+e);
+        }
+    }
 }
