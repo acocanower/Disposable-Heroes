@@ -5,7 +5,7 @@
 /**
  * @author Aaron
  * 
- * Last edit: 2-7-18 by Aaron
+ * Last edit: 2-8-18 by Aaron
  *
  */
 
@@ -19,15 +19,14 @@ import java.nio.file.Paths;
 //for random generation
 import java.util.concurrent.ThreadLocalRandom;
 //for writing bio upon death
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
-import java.util.Scanner;
 public class Soldier {
 	//soldiers name
 	private String NAME;
 	private String RANK;
+	private int HP = 50;
+	//default AC of 20;
+	private int AC = 20;
 	public static String newline = System.getProperty("line.separator");
 	
 	//Constructor
@@ -48,14 +47,25 @@ public class Soldier {
 		String rankReturn = "Private";
 		if(rankDecider <= 80)
 			rankReturn= "Private";
-		if(rankDecider > 80)
+		if(rankDecider > 80) {
 			rankReturn= "Private Second Class";
-		if(rankDecider > 95)
+			AC+=5;
+		}
+		if(rankDecider > 95) {
 			rankReturn= "Private First Class";
-		if(rankDecider > 98)
+			HP+=5;
+			AC+=5;
+		}
+		if(rankDecider > 98) {
 			rankReturn= "Corporal";
-		if(rankDecider > 99)
+			HP+=5;
+			AC+=5;
+		}
+		if(rankDecider > 99) {
 			rankReturn= "Sergent";
+			HP+=5;
+			AC+=5;
+		}
 		return rankReturn;
 	}
 	
@@ -101,22 +111,59 @@ public class Soldier {
 	}		String line = null;
 
 	
+	//gets
+	
+	//get name and rank
+	public String getNameAndRank() {
+		return (RANK+" "+NAME);
+	}
+	
+	//get HP
+	public int getHP() {
+		return HP;
+	}
+	//get AC
+	public int getAC() {
+		return AC;
+	}
+	
+	
+	//actions
+	
+	//Take damage
+	public int takeDamage(int DAMAGE_DEALT) {
+		int damageTaken = 0;
+		//removes damage absorbed by Armor Class
+		damageTaken = DAMAGE_DEALT - AC;
+		//checks if the AC absorbed all damage
+		if(damageTaken > 0) {
+			//if more damage than armmor class that damage hits HP
+			HP -= damageTaken;
+		}
+		//return HP
+		return HP;
+	}
+	
+	//kill
 	public void kill() {
 		int min = 0;
 		int max = 4;
 		int NUMBER_OF_KIDS = ThreadLocalRandom.current().nextInt(min, max + 1);
 		boolean MARRIED = ((NUMBER_OF_KIDS > 0) && ThreadLocalRandom.current().nextBoolean()) || ThreadLocalRandom.current().nextBoolean();
-		String deathlog = RANK+" "+NAME+" served honorably.  He was father to "+NUMBER_OF_KIDS+" children and was"+((MARRIED)?(" "):(" not "))+"married.";
+		String deathlog = getNameAndRank()+" served honorably.  He was father to "+NUMBER_OF_KIDS+" children and was"+((MARRIED)?(" "):(" not "))+"married.";
 		System.out.println(deathlog);
 		catalogDeath(deathlog);
 	}
+	
+	//add to catalog of death
 	private void catalogDeath(String deathlog) {
 		String fileLoc = "catalogOfDeath.txt";
         try {
         	//loads file into RAM
         	File catalogOfDeath = new File(fileLoc);
         	
-        	String previousDeath = new String(Files.readAllBytes(Paths.get(fileLoc)), StandardCharsets.US_ASCII);// .UTF_8);
+        	//reads whole file, converts to a byte array, then makes it into a String
+        	String previousDeath = new String(Files.readAllBytes(Paths.get(fileLoc)), StandardCharsets.US_ASCII);
         	
         	
     		//Loads the file into a FileWriter

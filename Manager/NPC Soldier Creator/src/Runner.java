@@ -1,23 +1,43 @@
 /**
+ * @author Aaron
  * 
- */
-
-/**
- * @author Ryan
+ * Last Edit: 2-8-2018 Aaron
  *
  */
+//Imports
+//User interface
+import java.util.Scanner;
+
 public class Runner {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		//Loads keyboard
+		Scanner keyboard = new Scanner(System.in);
+		//
 		Names name = new Names();
 		Soldier test = new Soldier(name.generateRandomName());
-		test.kill();
-		test = new Soldier(name.generateRandomName());
-		test.kill();
+		int damage = 0;
+		boolean alive = true;
+		
+		System.out.println("Enter damage of 99999 to exit");
+		System.out.println("Please enter damage to "+test.getNameAndRank()+":: ");
+		
+		while(alive && (damage = keyboard.nextInt()) != 99999) {
+			test.takeDamage(damage);
+			int hp = test.getHP();
+			System.out.println(hp);
+			if(hp <= 0) {
+				alive = false;
+				test.kill();
+			}
+			else {
+				System.out.println("Please enter damage to "+test.getNameAndRank()+":: ");
+			}
+		}
+		
 		/**test = new Soldier(name.generateRandomName());
 		test.kill();
 		test = new Soldier(name.generateRandomName());
