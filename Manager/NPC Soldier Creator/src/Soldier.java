@@ -8,40 +8,63 @@
  * Last edit: 2-7-18 by Aaron
  *
  */
+
+//Imports
+//for getting name
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+//for random generation
+import java.util.concurrent.ThreadLocalRandom;
+//for writing bio upon death
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 public class Soldier {
 	//soldiers name
-	String name;
-	String rank;
+	String NAME;
+	String RANK;
 	
+	
+	//Constructor
 	public Soldier() {
 		//retrive the soldier's name
 		
 		try {
-			this.name = makeName();
+			this.NAME = makeName();
 		} catch (IOException e) {
-			this.name = "Unknown Soldier";
+			this.NAME = "Unknown Soldier";
 			System.out.println(e);
 		}
-		int rankDecider = (int)(Math.ceil(((Math.random()+0.5)*100)/2));
-		System.out.println(rankDecider);
-		if(rankDecider <= 80)
-			this.rank= "Private";
-		if(rankDecider > 80)
-				this.rank = "Private Second Class";
-		if(rankDecider > 95)
-				this.rank = "Private First Class";
-		if(rankDecider > 98)
-				this.rank = "Corporal";
-		if(rankDecider > 99)
-				this.rank = "Sergent";
-		System.out.println("His name is: "+rank+" "+name);
+		this.RANK = makeRank();
+		
 	}
+	
+	
+	//Set the rank of this character
+	private String makeRank() {
+		int min = 1;
+		int max = 100;
+		int rankDecider = ThreadLocalRandom.current().nextInt(min, max + 1);
+		String rankReturn = "Private";
+		if(rankDecider <= 80)
+			rankReturn= "Private";
+		if(rankDecider > 80)
+			rankReturn= "Private Second Class";
+		if(rankDecider > 95)
+			rankReturn= "Private First Class";
+		if(rankDecider > 98)
+			rankReturn= "Corporal";
+		if(rankDecider > 99)
+			rankReturn= "Sergent";
+		return rankReturn;
+	}
+	
+	
+	
 	private String makeName() throws IOException {
 		String parsedName = "";
 		// Make a URL to the web page
@@ -80,5 +103,17 @@ public class Soldier {
 			}
 		}
 		return parsedName;
+	}
+	
+	public void kill() {
+		int min = 0;
+		int max = 4;
+		int NUMBER_OF_KIDS = ThreadLocalRandom.current().nextInt(min, max + 1);
+		boolean MARRIED = ((NUMBER_OF_KIDS > 0) && ThreadLocalRandom.current().nextBoolean()) || ThreadLocalRandom.current().nextBoolean();
+		String deathlog = RANK+" "+NAME+" served honorably.  He was father to "+NUMBER_OF_KIDS+" children and was"+((MARRIED)?(" "):(" not "))+"married.";
+		catalogDeath(deathlog);
+	}
+	private void catalogDeath(String deathlog) {
+		System.out.println(deathlog);
 	}
 }
