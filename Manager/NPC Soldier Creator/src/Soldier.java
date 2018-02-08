@@ -17,6 +17,7 @@ import java.net.URLConnection;
 public class Soldier {
 	//soldiers name
 	String name;
+	String rank;
 	
 	public Soldier() {
 		//retrive the soldier's name
@@ -27,7 +28,26 @@ public class Soldier {
 			this.name = "Unknown Soldier";
 			System.out.println(e);
 		}
-		System.out.println("His name is: "+name);
+		switch((int)(Math.ceil(Math.random()*100))){
+			case 1-80:
+				this.rank= "Private";
+				break;
+			case 80-94:
+				this.rank = "Private Second Class";
+				break;
+			case 95-97:
+				this.rank = "Private First Class";
+				break;
+			case 98-99:
+				this.rank = "Corporal";
+				break;
+			case 100:
+				this.rank = "Sergent";
+				break;
+			default:
+				this.rank = "Private";
+		}
+		System.out.println("His name is: "+rank+" "+name);
 	}
 	private String makeName() throws IOException {
 		String parsedName = "";
@@ -55,7 +75,6 @@ public class Soldier {
 		String line = null;
 		// read each line and write to System.out
 		while ((line = br.readLine()) != null && !done) {
-			System.out.println(line);
 			if(line.contains("address")) {
 				parsedName = br.readLine();
 				if(((line = br.readLine()) != null) && line.contains("<div class=\"adr\">")){
