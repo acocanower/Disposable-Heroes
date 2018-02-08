@@ -28,25 +28,18 @@ public class Soldier {
 			this.name = "Unknown Soldier";
 			System.out.println(e);
 		}
-		switch((int)(Math.ceil(Math.random()*100))){
-			case 1-80:
-				this.rank= "Private";
-				break;
-			case 80-94:
+		int rankDecider = (int)(Math.ceil(((Math.random()+0.5)*100)/2));
+		System.out.println(rankDecider);
+		if(rankDecider <= 80)
+			this.rank= "Private";
+		if(rankDecider > 80)
 				this.rank = "Private Second Class";
-				break;
-			case 95-97:
+		if(rankDecider > 95)
 				this.rank = "Private First Class";
-				break;
-			case 98-99:
+		if(rankDecider > 98)
 				this.rank = "Corporal";
-				break;
-			case 100:
+		if(rankDecider > 99)
 				this.rank = "Sergent";
-				break;
-			default:
-				this.rank = "Private";
-		}
 		System.out.println("His name is: "+rank+" "+name);
 	}
 	private String makeName() throws IOException {
