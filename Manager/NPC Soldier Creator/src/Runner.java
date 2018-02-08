@@ -23,18 +23,18 @@ public class Runner {
 		boolean alive = true;
 		
 		System.out.println("Enter damage of 99999 to exit");
-		System.out.println("Please enter damage to "+test.getNameAndRank()+":: ");
+		System.out.print("Please enter damage to "+test.getNameAndRank()+":: ");
 		
 		while(alive && (damage = keyboard.nextInt()) != 99999) {
 			test.takeDamage(damage);
 			int hp = test.getHP();
-			System.out.println(hp);
+			System.out.println("HP: "+hp);
 			if(hp <= 0) {
 				alive = false;
 				test.kill();
 			}
 			else {
-				System.out.println("Please enter damage to "+test.getNameAndRank()+":: ");
+				System.out.print("Please enter damage to "+test.getNameAndRank()+":: ");
 			}
 		}
 		
