@@ -1,7 +1,7 @@
 /**
  * @author Aaron
  * 
- * Last Edit: 2-8-2018 Aaron
+ * Last Edit: 2-9-2018 Aaron
  *
  */
 //Imports
@@ -34,6 +34,9 @@ public class Runner extends JFrame
 	private String WINDOW_TITLE = "Soldier Generator";
     private final int WIDTH=400;
     private final int HEIGTH=200;
+    
+    //Back ground stuff
+    private Names NAMES;
 
 	/**
 	 * Autogened because I have no idea what it is....
@@ -92,7 +95,7 @@ public class Runner extends JFrame
 	public Runner() {
 
 		//load name generator once to less processing
-		Names name = new Names();
+		NAMES = new Names();
 		
 		//Initialing fields and buttons and stuff
 		BTNcreateSoldiers = new JButton("Generate Soldiers");
@@ -149,7 +152,7 @@ public class Runner extends JFrame
 				int num = getNum.nextInt();
 				
 				//output as placeholder to make a soldier management window
-				System.out.println(num);
+				SoldierManagementGUI GUI = new SoldierManagementGUI(num, NAMES);
 			}
 			
 			//if it is not an Integer, than throw error message

@@ -1,8 +1,12 @@
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.jar.Attributes.Name;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
@@ -21,9 +25,29 @@ public class SoldierManagementGUI extends JFrame
 	private Container pane;
 	private int rows;
 	private int cols;
+	private Names NAMES;
 	
 	
-	public SoldierManagementGUI(int NUMBER_OF_SOLDIERS) {
+	public SoldierManagementGUI(int NUMBER_OF_SOLDIERS, Names NAMES) {
+		
+		//gets the size of the screen
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		int width = (int) screenSize.getWidth();
+		int height = (int) screenSize.getHeight();
+		
+		System.out.println("Width is read as: "+width);
+		System.out.println("Height is read as: "+height);
+		
+		
+		//making Jframe
+		setTitle("Soldier Management");
+		setSize(width, height);
+		setResizable(true);
+		
+		
+		
+		//store NAMES instance so save processing 
+		this.NAMES = NAMES;
 		
 		//rename so easier to type
 		int NUM = NUMBER_OF_SOLDIERS;
@@ -54,10 +78,24 @@ public class SoldierManagementGUI extends JFrame
 		// sets the pane to a grid layout
 		pane=getContentPane();
 		pane.setLayout(new GridLayout(rows,cols));
+		for(int i = 0; i < NUM; i++) {
+			pane.add(new JButton(NAMES.generateRandomName()));
+		}
+		//addSoliders(NUM);
+		
+		//makes it so you can see the window
+		setVisible(true);
+		
+		//Not _really_ needed from my understanding but a good practice
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 	}
 	
-	private void test() {
-		
+	//adds NUM soldier to the pane
+	private void addSoliders(int NUM) {
+		for(int i = 0; i < NUM; i++) {
+			SoldierComponent toAdd = new SoldierComponent(NAMES.generateRandomName());
+		}
 		
 	}
 
