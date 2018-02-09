@@ -168,7 +168,7 @@ public class Soldier {
     		//Loads the file into a FileWriter
     		FileWriter bw = new FileWriter(catalogOfDeath);
     		//overrides the current Catalog Of Death file with it's previous content +new content
-            bw.write(previousDeath+newline+deathlog);
+            bw.write(previousDeath+newline+deathlog+newline);
             //closes the writer
             bw.close();
         }
