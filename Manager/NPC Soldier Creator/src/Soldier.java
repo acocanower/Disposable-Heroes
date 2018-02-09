@@ -61,9 +61,14 @@ public class Soldier {
 		//return String
 		String rankReturn = "";
 		
-		//80% chance of being a Private
+		//1% chance of civilian
+		if(rankDecider == 0) {
+			AC = 5;
+		}
+		
+		//79% chance of being a Private
 		//No perks
-		if(rankDecider <= 80)
+		if(rankDecider >= 1)
 			rankReturn= "Private";
 		
 		//15% chance of being a Private Second Class

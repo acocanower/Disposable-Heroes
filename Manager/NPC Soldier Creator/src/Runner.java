@@ -9,6 +9,7 @@
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Container;
 
@@ -21,7 +22,7 @@ import java.util.Scanner;
 
 
 public class Runner extends JFrame 
-implements ActionListener {
+					implements ActionListener {
 	
 	//Interface
 	private JButton BTNcreateSoldiers;
@@ -45,6 +46,7 @@ implements ActionListener {
 	public static void main(String[] args) {
 		Runner run = new Runner();		
 		
+		//saving for later use
 		/**
 		//Loads keyboard
 		Scanner keyboard = new Scanner(System.in);
@@ -129,13 +131,41 @@ implements ActionListener {
 		//makes it so you can see the window
 		setVisible(true);
 	
-		//Not _really_ needed from my understanding but a good pratice
+		//Not _really_ needed from my understanding but a good practice
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		System.out.println(TXFnumberOfSoldiers.getText());
+		//only action that can be performed is is clicking make soldiers button
+		
+		Scanner getNum = new Scanner(TXFnumberOfSoldiers.getText());
+		
+		//if something is entered
+		if(getNum.hasNext()) {
+			//then try to parse it as an int
+			try {
+				//parsing
+				int num = getNum.nextInt();
+				
+				//output as placeholder to make a soldier management window
+				System.out.println(num);
+			}
+			
+			//if it is not an Integer, than throw error message
+			catch(Exception e) {
+				JOptionPane.showMessageDialog(this, "Please enter a valid Integer",
+					    "Parsing Error",
+					    JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		
+		//if nothing is entered, throw an error message
+		else {
+			JOptionPane.showMessageDialog(this, "Please enter a valid Integer",
+				    "Parsing Error",
+				    JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }
