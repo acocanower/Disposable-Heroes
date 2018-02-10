@@ -49,38 +49,48 @@ public class SoldierManagementGUI extends JFrame
 		
 		//rename so easier to type
 		int NUM = NUMBER_OF_SOLDIERS;
+		//0 means it will expand to needed amount
+		rows = 0;
 		
 		//if 8 or fewer soldiers 2 cols, and as many rows as it needs
 		if(NUM <= 6) {
-			cols = 0;
+			if(NUM % 2 == 0) {
+				cols = 2;
+			}
+			else {
+				cols = 6;
+			}
 			
-			//0 means it will expand to needed amount
-			rows = 2;
+			
 		}
 		
 		//if 12 for fewer 3 cols
 		else if(NUM <= 12) {
-			cols = 0;
-			rows = 4;
+			if(NUM % 2 == 0) {
+				cols = 4;
+			}
+			else {
+				cols = 12;
+			}
 		}
 		//16 or fewer 4 cols
-		else if(NUM <= 24) {
-			cols = 0;
-			rows = 8;
-		}
-		//else 6 cols
-		else {
-			cols = 0;
-			rows = 16;
-		}
+		else{
+			if(NUM % 2 == 0) {
+				cols = 8;
+			}
+			else {
+				cols = 12;
+				}		
+			}
 		
 		
 		
 		// sets the pane to a grid layout
 		pane=getContentPane();
-		pane.setLayout(new GridLayout(rows,cols));
+
 		
 		addSoliders(NUM);
+		pane.setLayout(new GridLayout(rows,cols));
 		
 		/**
 		for(int i = 0; i < NUM; i++) {
