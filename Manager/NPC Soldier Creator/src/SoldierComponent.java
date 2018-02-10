@@ -2,16 +2,24 @@ import java.awt.Component;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.LayoutManager;
+import java.awt.LayoutManager2;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * 
@@ -48,30 +56,43 @@ public class SoldierComponent extends Container
 	
 	
 	public Container makeGUI(Container pane) {
-		
+		Container toadd = pane;
 		String nameAndRank = soldier.getNameAndRank();
-		pane.add(LBL_SoldierNameAndRank = new JLabel(soldier.getNameAndRank()), BorderLayout.PAGE_START);
 		
+		//toadd.setLayout(new GridBagLayout());
 		
-		pane.add(new JLabel("IMAGE PLACEHOLDER"), BorderLayout.PAGE_START);//new ImageIcon(soldier.getImageLoc())), BorderLayout.PAGE_START);
+		//GridBagConstraints c = new GridBagConstraints();
+		
+		//c.fill = GridBagConstraints.HORIZONTAL;
+		
+		toadd.add(LBL_SoldierNameAndRank = new JLabel(soldier.getNameAndRank())).setPreferredSize(new Dimension(40,400));
+		BufferedImage image = null;
+		try {
+			image = ImageIO.read(new File(soldier.getImageLoc()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		toadd.add(new JLabel(new ImageIcon(image.getScaledInstance(80,80,image.SCALE_DEFAULT))), BorderLayout.PAGE_START);
 		
 		
 		JLabel damageLabel = new JLabel("Enter Damge:: ");
 		damageLabel.setPreferredSize(new Dimension(200, 100));
-		pane.add(damageLabel, BorderLayout.CENTER);
+		toadd.add(damageLabel, BorderLayout.CENTER);
 		
 		
 		LBL_CurrentHP= new JLabel(""+soldier.getHP());
-		pane.add(LBL_CurrentHP, BorderLayout.LINE_START);
+		toadd.add(LBL_CurrentHP, BorderLayout.LINE_START);
 		
 		
 		JTextField TXFDamage = new JTextField("0");
-		pane.add(TXFDamage, BorderLayout.LINE_END);
+		toadd.add(TXFDamage, BorderLayout.LINE_END);
 		
 		JButton BTN_TakeDamage = new JButton("Take Damage");
-		pane.add(BTN_TakeDamage,BorderLayout.PAGE_END);
+		toadd.add(BTN_TakeDamage,BorderLayout.PAGE_END);
 		
-		return pane;
+		
+		return toadd;
 	}
 	
 

@@ -51,27 +51,27 @@ public class SoldierManagementGUI extends JFrame
 		int NUM = NUMBER_OF_SOLDIERS;
 		
 		//if 8 or fewer soldiers 2 cols, and as many rows as it needs
-		if(NUM <= 8) {
-			cols = 2;
+		if(NUM <= 6) {
+			cols = 0;
 			
 			//0 means it will expand to needed amount
-			rows = 0;
+			rows = 2;
 		}
 		
 		//if 12 for fewer 3 cols
 		else if(NUM <= 12) {
-			cols = 3;
-			rows = 0;
+			cols = 0;
+			rows = 4;
 		}
 		//16 or fewer 4 cols
-		else if(NUM <= 16) {
-			cols = 4;
-			rows = 0;
+		else if(NUM <= 24) {
+			cols = 0;
+			rows = 8;
 		}
 		//else 6 cols
 		else {
-			cols = 6;
-			rows = 0;
+			cols = 0;
+			rows = 16;
 		}
 		
 		
@@ -99,7 +99,7 @@ public class SoldierManagementGUI extends JFrame
 	private void addSoliders(int NUM) {
 		for(int i = 0; i < NUM; i++) {
 			SoldierComponent toAdd = new SoldierComponent(NAMES.generateRandomName());
-			pane = toAdd.makeGUI(pane);
+			pane = (toAdd.makeGUI(pane));
 		}
 		
 	}

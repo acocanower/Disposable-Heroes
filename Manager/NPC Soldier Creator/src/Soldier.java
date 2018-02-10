@@ -24,6 +24,7 @@ import java.util.concurrent.ThreadLocalRandom;
 //for loading a random soldier Image
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 //for writing bio upon death
 import java.io.*;
@@ -119,7 +120,7 @@ public class Soldier {
 		//max to be set in rank decider switch
 		max = 1;
 		
-		image = "IMG/" + rankReturn + "/" + ThreadLocalRandom.current().nextInt(min, max + 1) + ".jpg";
+		image = "IMG\\" + rankReturn + "\\" + ThreadLocalRandom.current().nextInt(min, max + 1) + ".jpg";
 		
 		
 		//ship it
@@ -205,4 +206,11 @@ public class Soldier {
             System.out.println("ERROR: "+e);
         }
     }
+
+
+	public ImageIcon getImage() {
+		ImageIcon toReturn = null;
+		
+		return toReturn;
+	}
 }
