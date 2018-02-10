@@ -47,7 +47,7 @@ public class Runner extends JFrame
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Runner run = new Runner();		
+		Runner run = new Runner();
 		
 		//saving for later use
 		/**
@@ -75,7 +75,7 @@ public class Runner extends JFrame
 			}
 		}
 		
-		/**test = new Soldier(name.generateRandomName());
+		test = new Soldier(name.generateRandomName());
 		test.kill();
 		test = new Soldier(name.generateRandomName());
 		test.kill();
@@ -150,9 +150,13 @@ public class Runner extends JFrame
 			try {
 				//parsing
 				int num = getNum.nextInt();
-				
-				//output as placeholder to make a soldier management window
-				SoldierManagementGUI GUI = new SoldierManagementGUI(num, NAMES);
+				try {
+					//output as placeholder to make a soldier management window
+					SoldierManagementGUI GUI = new SoldierManagementGUI(num, NAMES);
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
 			}
 			
 			//if it is not an Integer, than throw error message

@@ -5,21 +5,30 @@
 /**
  * @author Aaron
  * 
- * Last edit: 2-8-18 by Aaron
+ * Last edit: 2-9-18 by Aaron
  *
  */
 
 //Imports
+
 //for getting name
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 //for random generation
 import java.util.concurrent.ThreadLocalRandom;
+
+//for loading a random soldier Image
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
 //for writing bio upon death
 import java.io.*;
+
+
 public class Soldier {
 	
 	//soldiers name
@@ -33,6 +42,9 @@ public class Soldier {
 	
 	//default AC of 20;
 	private int AC = 20;
+	
+	//picture of soldier
+	private String image;
 	
 	//used to make create a newline char in Catalog of Dead
 	public static String newline = System.getProperty("line.separator");
@@ -64,6 +76,7 @@ public class Soldier {
 		//1% chance of civilian
 		if(rankDecider == 0) {
 			AC = 5;
+			rankReturn= "Civilian";
 		}
 		
 		//79% chance of being a Private
@@ -102,10 +115,17 @@ public class Soldier {
 			AC+=5;
 		}
 		
+		//min is already 0 
+		//max to be set in rank decider switch
+		max = 1;
+		
+		image = "IMG/" + rankReturn + "/" + ThreadLocalRandom.current().nextInt(min, max + 1) + ".jpg";
+		
+		
 		//ship it
 		return rankReturn;
 	}
-
+	// image = ImageIO.read(new File("image name and path"));
 	
 	//Get Methods **************************************************************
 	
@@ -121,6 +141,9 @@ public class Soldier {
 	//get AC
 	public int getAC() {
 		return AC;
+	}
+	public String getImageLoc() {
+		return image;
 	}
 	
 	

@@ -35,13 +35,11 @@ public class SoldierManagementGUI extends JFrame
 		int width = (int) screenSize.getWidth();
 		int height = (int) screenSize.getHeight();
 		
-		System.out.println("Width is read as: "+width);
-		System.out.println("Height is read as: "+height);
-		
 		
 		//making Jframe
 		setTitle("Soldier Management");
-		setSize(width, height);
+		setSize(width/2, height/2);
+		setLocation(width/4, height/4);
 		setResizable(true);
 		
 		
@@ -75,19 +73,25 @@ public class SoldierManagementGUI extends JFrame
 			cols = 6;
 			rows = 0;
 		}
+		
+		
+		
 		// sets the pane to a grid layout
 		pane=getContentPane();
 		pane.setLayout(new GridLayout(rows,cols));
+		
+		addSoliders(NUM);
+		
+		/**
 		for(int i = 0; i < NUM; i++) {
 			pane.add(new JButton(NAMES.generateRandomName()));
-		}
-		//addSoliders(NUM);
+		}*/
 		
 		//makes it so you can see the window
 		setVisible(true);
 		
 		//Not _really_ needed from my understanding but a good practice
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 	}
 	
@@ -95,6 +99,7 @@ public class SoldierManagementGUI extends JFrame
 	private void addSoliders(int NUM) {
 		for(int i = 0; i < NUM; i++) {
 			SoldierComponent toAdd = new SoldierComponent(NAMES.generateRandomName());
+			pane = toAdd.makeGUI(pane);
 		}
 		
 	}
@@ -103,6 +108,8 @@ public class SoldierManagementGUI extends JFrame
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		
+		
+		revalidate();
 	}
 
 }
